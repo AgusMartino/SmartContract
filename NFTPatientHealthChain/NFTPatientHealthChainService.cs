@@ -198,17 +198,6 @@ namespace SmartContract.Contracts.NFTPatientHealthChain
              return ContractHandler.SendRequestAndWaitForReceiptAsync(mintNFTFunction, cancellationToken);
         }
 
-        public Task<string> MyTokenQueryAsync(MyTokenFunction myTokenFunction, BlockParameter blockParameter = null)
-        {
-            return ContractHandler.QueryAsync<MyTokenFunction, string>(myTokenFunction, blockParameter);
-        }
-
-        
-        public Task<string> MyTokenQueryAsync(BlockParameter blockParameter = null)
-        {
-            return ContractHandler.QueryAsync<MyTokenFunction, string>(null, blockParameter);
-        }
-
         public Task<string> NameQueryAsync(NameFunction nameFunction, BlockParameter blockParameter = null)
         {
             return ContractHandler.QueryAsync<NameFunction, string>(nameFunction, blockParameter);
@@ -452,34 +441,32 @@ namespace SmartContract.Contracts.NFTPatientHealthChain
              return ContractHandler.SendRequestAndWaitForReceiptAsync(transferNFTFunction, cancellationToken);
         }
 
-        public Task<string> TransferNFTWithTokenRequestAsync(TransferNFTWithTokenFunction transferNFTWithTokenFunction)
+        public Task<string> TransferNFTWithETHRequestAsync(TransferNFTWithETHFunction transferNFTWithETHFunction)
         {
-             return ContractHandler.SendRequestAsync(transferNFTWithTokenFunction);
+             return ContractHandler.SendRequestAsync(transferNFTWithETHFunction);
         }
 
-        public Task<TransactionReceipt> TransferNFTWithTokenRequestAndWaitForReceiptAsync(TransferNFTWithTokenFunction transferNFTWithTokenFunction, CancellationTokenSource cancellationToken = null)
+        public Task<TransactionReceipt> TransferNFTWithETHRequestAndWaitForReceiptAsync(TransferNFTWithETHFunction transferNFTWithETHFunction, CancellationTokenSource cancellationToken = null)
         {
-             return ContractHandler.SendRequestAndWaitForReceiptAsync(transferNFTWithTokenFunction, cancellationToken);
+             return ContractHandler.SendRequestAndWaitForReceiptAsync(transferNFTWithETHFunction, cancellationToken);
         }
 
-        public Task<string> TransferNFTWithTokenRequestAsync(string to, BigInteger tokenId, BigInteger tokenAmount)
+        public Task<string> TransferNFTWithETHRequestAsync(string to, BigInteger tokenId)
         {
-            var transferNFTWithTokenFunction = new TransferNFTWithTokenFunction();
-                transferNFTWithTokenFunction.To = to;
-                transferNFTWithTokenFunction.TokenId = tokenId;
-                transferNFTWithTokenFunction.TokenAmount = tokenAmount;
+            var transferNFTWithETHFunction = new TransferNFTWithETHFunction();
+                transferNFTWithETHFunction.To = to;
+                transferNFTWithETHFunction.TokenId = tokenId;
             
-             return ContractHandler.SendRequestAsync(transferNFTWithTokenFunction);
+             return ContractHandler.SendRequestAsync(transferNFTWithETHFunction);
         }
 
-        public Task<TransactionReceipt> TransferNFTWithTokenRequestAndWaitForReceiptAsync(string to, BigInteger tokenId, BigInteger tokenAmount, CancellationTokenSource cancellationToken = null)
+        public Task<TransactionReceipt> TransferNFTWithETHRequestAndWaitForReceiptAsync(string to, BigInteger tokenId, CancellationTokenSource cancellationToken = null)
         {
-            var transferNFTWithTokenFunction = new TransferNFTWithTokenFunction();
-                transferNFTWithTokenFunction.To = to;
-                transferNFTWithTokenFunction.TokenId = tokenId;
-                transferNFTWithTokenFunction.TokenAmount = tokenAmount;
+            var transferNFTWithETHFunction = new TransferNFTWithETHFunction();
+                transferNFTWithETHFunction.To = to;
+                transferNFTWithETHFunction.TokenId = tokenId;
             
-             return ContractHandler.SendRequestAndWaitForReceiptAsync(transferNFTWithTokenFunction, cancellationToken);
+             return ContractHandler.SendRequestAndWaitForReceiptAsync(transferNFTWithETHFunction, cancellationToken);
         }
 
         public Task<string> TransferOwnershipRequestAsync(TransferOwnershipFunction transferOwnershipFunction)
@@ -506,6 +493,26 @@ namespace SmartContract.Contracts.NFTPatientHealthChain
                 transferOwnershipFunction.NewOwner = newOwner;
             
              return ContractHandler.SendRequestAndWaitForReceiptAsync(transferOwnershipFunction, cancellationToken);
+        }
+
+        public Task<string> WithdrawBalanceRequestAsync(WithdrawBalanceFunction withdrawBalanceFunction)
+        {
+             return ContractHandler.SendRequestAsync(withdrawBalanceFunction);
+        }
+
+        public Task<string> WithdrawBalanceRequestAsync()
+        {
+             return ContractHandler.SendRequestAsync<WithdrawBalanceFunction>();
+        }
+
+        public Task<TransactionReceipt> WithdrawBalanceRequestAndWaitForReceiptAsync(WithdrawBalanceFunction withdrawBalanceFunction, CancellationTokenSource cancellationToken = null)
+        {
+             return ContractHandler.SendRequestAndWaitForReceiptAsync(withdrawBalanceFunction, cancellationToken);
+        }
+
+        public Task<TransactionReceipt> WithdrawBalanceRequestAndWaitForReceiptAsync(CancellationTokenSource cancellationToken = null)
+        {
+             return ContractHandler.SendRequestAndWaitForReceiptAsync<WithdrawBalanceFunction>(null, cancellationToken);
         }
     }
 }
