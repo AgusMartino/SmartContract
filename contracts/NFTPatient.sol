@@ -15,11 +15,11 @@ contract NFTPatientHealthChain is ERC721, Ownable {
     event NFTTransferred(address indexed from, address indexed to, uint256 tokenId, bytes32 txHash);
 
     constructor(address initialOwner) ERC721("NFTPatient", "NPNT") Ownable(initialOwner) {
-        housewallet = 0x75644b22C8EA18657852Cd4931De377332e1220D;
+        housewallet = initialOwner;
     }
 
     // Función para crear un nuevo NFT con un ID específico
-    function mintNFT(address to, uint256 tokenId) public onlyOwner {
+    function mintNFT(address to, uint256 tokenId) public {
         require(!_nftExists[tokenId], "NFT with this ID already exists");
 
         _mint(to, tokenId);
